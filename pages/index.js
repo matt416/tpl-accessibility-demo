@@ -1,65 +1,40 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import Layout from "../layouts/Layout"
+import Pagination from "../components/Pagination"
+import BookGridItem from "../components/BookGridItem"
+import Aside from "../components/Aside"
+import { BOOK_LIST } from "../const"
 
-export default function Home() {
+export default function Books() {
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <Layout>
+      <div className="flex max-w-screen-lg mx-auto py-16">
+        <main className="w-full flex-auto space-y-3 p-6" aria-labelledby="main-heading">
+          <h1 id="main-heading" className="text-40">New in General Fiction</h1>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+          <div data-name="filter" className="flex justify-start">
+            <span>973 Results</span>
+            <span className="ml-auto">View</span>
+            <span className="ml-6">Sort by</span>
+          </div>
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
+          <section aria-labelledby="section-heading" className="flex flex-wrap -m-6">
+            <h2 className="sr-only" id="section-heading">Books, Page 1</h2>
+            {
+              BOOK_LIST.map((book, index) => (
+                <BookGridItem { ...book } key={ `book-item-${index}` } />
+              ))
+            }
+          </section>
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
+          <Pagination/>
 
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
+        </main>
 
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+        <div className="hidden md:flex flex-col w-72 p-6 flex-none">
+          <Aside/>
         </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
-  )
+      </div>
+    </Layout>
+  );
 }
+
